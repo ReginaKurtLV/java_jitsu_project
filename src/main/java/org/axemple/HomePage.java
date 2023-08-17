@@ -21,6 +21,12 @@ public class HomePage extends BasePage {
     @FindBy(css = "h5[itemprop='name'] a[title='Faded Short Sleeve T-shirts']")
     private WebElement firstTShirtSell;
 
+    @FindBy(css = "a[title='Women']")
+    private WebElement womanButton;
+
+    @FindBy(xpath = "//a[@title='Women']")
+    private WebElement textWoman;
+
     public HomePage search(){
         searchHomePage.click();
         return this;
@@ -39,4 +45,12 @@ public class HomePage extends BasePage {
     public String firstSellWithTShirt(){
         return firstTShirtSell.getText();
     }
+
+    public HomePage submitWomanButton(){
+        womanButton.click();
+        return this;
+    }
+
+    public String  getTextWomen() {return textWoman.getText();}
 }
+

@@ -1,37 +1,40 @@
 package org.axemple;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public abstract class BasePage {
 
-        protected WebDriver driver;
+    private WebDriverWait wait2;
+    private WebDriverWait wait5;
+    private WebDriverWait wait10;
 
-    public BasePage() {
+    private WebDriver driver;
+
+    protected WebDriver getDriver() {
+        return driver;
     }
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
+    protected WebDriverWait getWait5() {
+        if (wait5 == null) {
+            wait5 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        }
+        return wait5;
     }
 
-
-    public void waitForElementToBeClickable(By locator, int timeoutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
+    protected WebDriverWait getWait2() {
+        if (wait2 == null) {
+            wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
+        }
+        return wait2;
     }
 
-    public void wait2(By locator) {
-        waitForElementToBeClickable(locator, 2);
-    }
-    public void wait5 (By locator) {
-        waitForElementToBeClickable(locator, 5);
-    }
-    public void wait10 (By locator) {
-        waitForElementToBeClickable(locator, 10);
+    protected WebDriverWait getWait10() {
+        if (wait10 == null) {
+            wait10 = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        }
+        return wait10;
     }
 }
 

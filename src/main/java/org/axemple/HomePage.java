@@ -10,47 +10,17 @@ public class HomePage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    private static final String tShirt = "T-shirt";
+    @FindBy(id = "Form_submitForm_action_request")
+    private WebElement submitForm;
 
-    @FindBy(id = "search_query_top")
-    private WebElement searchHomePage;
+    @FindBy(xpath = "//h1[contains(text(),'Revolutionize Your Human Resource Management Exper')]")
+    private WebElement getText;
 
-    @FindBy(name = "submit_search")
-    private WebElement buttonSubmit;
-
-    @FindBy(css = "h5[itemprop='name'] a[title='Faded Short Sleeve T-shirts']")
-    private WebElement firstTShirtSell;
-
-    @FindBy(css = "a[title='Women']")
-    private WebElement womanButton;
-
-    @FindBy(xpath = "//a[@title='Women']")
-    private WebElement textWoman;
-
-    public HomePage search(){
-        searchHomePage.click();
-        return this;
+    public void freeButtonSubmit (){
+        submitForm.click();
     }
 
-    public HomePage writeTextTShirt(){
-        searchHomePage.sendKeys(tShirt);
-        return this;
-    }
+    public String  getTextFree() {return getText.getText();}
 
-    public HomePage submit(){
-        buttonSubmit.click();
-        return this;
-    }
-
-    public String firstSellWithTShirt(){
-        return firstTShirtSell.getText();
-    }
-
-    public HomePage submitWomanButton(){
-        womanButton.click();
-        return this;
-    }
-
-    public String  getTextWomen() {return textWoman.getText();}
 }
 

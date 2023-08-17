@@ -3,27 +3,16 @@ import org.axemple.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static Constants.Constants.PROMOTION_PAGE_TEXT;
+
 
 public class HomePageTest extends BaseTest {
 
-    private static final String textTShirt = "Faded Short Sleeve T-shirts";
-    private static final String textWomen = "WOMEN";
-
     @Test
-    public void searchTShirtTest(){
-        HomePage tShirt = new HomePage(driver);
+    public void FreeTestButton(){
+        HomePage testFreeButton = new HomePage(driver);
 
-        tShirt.search()
-                .writeTextTShirt()
-                .submit();
-        Assert.assertEquals(textTShirt, tShirt.firstSellWithTShirt());
-    }
-
-    @Test
-    public void pushButtonWomen(){
-        HomePage womenButton = new HomePage(driver);
-
-        womenButton.submitWomanButton();
-        Assert.assertEquals(textWomen, womenButton.getTextWomen());
+        testFreeButton.freeButtonSubmit();
+        Assert.assertEquals(PROMOTION_PAGE_TEXT, testFreeButton.getTextFree());
     }
 }

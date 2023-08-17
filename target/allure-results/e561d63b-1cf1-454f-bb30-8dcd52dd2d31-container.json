@@ -1,0 +1,1 @@
+{"uuid":"e561d63b-1cf1-454f-bb30-8dcd52dd2d31","name":"school.redrover.PipelineTest","children":["ad4fcc29-aa15-4743-9fe8-06b0aa4c3801"],"befores":[{"name":"beforeClass","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1689889841654,"stop":1689889841668}],"afters":[],"start":1689889841555,"stop":1689889879365}

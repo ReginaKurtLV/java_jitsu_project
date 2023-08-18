@@ -1,6 +1,6 @@
 package test;
 import base.runner.BaseTest;
-import org.axemple.HomePage;
+import Page.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

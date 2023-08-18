@@ -4,24 +4,65 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.axemple.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import java.util.concurrent.TimeUnit;
 
-public class BaseTest {
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.Duration;
+import java.util.Properties;
 
+public abstract class BaseTest {
     protected WebDriver driver;
     protected HomePage dashboardPage;
 
+
+
     @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
+    protected void setUp() {
 
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get("https://www.orangehrm.com/");
+// loading settings from config.properties
+        Properties properties = new Properties();
+        try (InputStream input = new FileInputStream("src/test/resources/config.properties")) {
+            properties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
 
+// retrieves driver, timeout, browser window size and URL
+
+        String driverPath = properties.getProperty("driverPath");
+        int implicitWaitTimeout = Integer.parseInt(properties.getProperty("implicitWaitTimeout"));
+        String browserWindowSize = properties.getProperty("browserWindowSize");
+        String appURL = properties.getProperty("appURL");
+
+//Check if a browser parameter is specified as a system property. If we change browser write in terminal "mvn test -Dbrowser=firefox'
+        String browser = System.getProperty("browser");
+        if (browser != null) {
+            browser = browser.toLowerCase();
+            if ("chrome".equals(browser)) {
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+            } else if ("firefox".equals(browser)) {
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+            } else {
+                throw new IllegalArgumentException("Unsupported browser: " + browser);
+            }
+        } else {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWaitTimeout));
+
+        if (browserWindowSize.equalsIgnoreCase("maximize")) {
+            driver.manage().window().maximize();
+        }
+
+        driver.get(appURL);
         dashboardPage = new HomePage(driver);
     }
 

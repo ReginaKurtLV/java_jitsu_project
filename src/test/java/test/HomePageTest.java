@@ -1,4 +1,5 @@
-package shop.project;
+package test;
+import base.runner.BaseTest;
 import org.axemple.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;

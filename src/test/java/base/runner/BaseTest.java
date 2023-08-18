@@ -1,10 +1,9 @@
 package base.runner;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.axemple.HomePage;
+import Page.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.Properties;
+
 
 @Listeners(ScreenShot.class)
 public abstract class BaseTest {

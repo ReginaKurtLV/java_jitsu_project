@@ -9,8 +9,8 @@ import org.testng.ITestResult;
 import java.io.File;
 import java.io.IOException;
 
-public class ScreenShot implements ITestListener {
 
+public class ScreenShot implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         captureScreenshot(result.getName(), BaseTest.driver);

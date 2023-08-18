@@ -4,9 +4,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.axemple.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,11 +16,10 @@ import java.io.InputStream;
 import java.time.Duration;
 import java.util.Properties;
 
+@Listeners(ScreenShot.class)
 public abstract class BaseTest {
-    protected WebDriver driver;
+    protected static WebDriver driver;
     protected HomePage dashboardPage;
-
-
 
     @BeforeMethod
     protected void setUp() {
@@ -33,7 +34,6 @@ public abstract class BaseTest {
         }
 
 // retrieves driver, timeout, browser window size and URL
-
         String driverPath = properties.getProperty("driverPath");
         int implicitWaitTimeout = Integer.parseInt(properties.getProperty("implicitWaitTimeout"));
         String browserWindowSize = properties.getProperty("browserWindowSize");
@@ -54,10 +54,14 @@ public abstract class BaseTest {
             }
         } else {
             WebDriverManager.chromedriver().setup();
+/*
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setHeadless(true);
+*/
             driver = new ChromeDriver();
         }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWaitTimeout));
-
+//sizes window
         if (browserWindowSize.equalsIgnoreCase("maximize")) {
             driver.manage().window().maximize();
         }
@@ -66,9 +70,8 @@ public abstract class BaseTest {
         dashboardPage = new HomePage(driver);
     }
 
-
     @AfterMethod
-    public void tearDown() {
+    protected void tearDown() {
         if (driver != null) {
             driver.manage().deleteAllCookies();
             driver.quit();

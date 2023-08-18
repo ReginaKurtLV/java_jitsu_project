@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.time.Duration;
 import java.util.Properties;
 
+
 @Listeners(ScreenShot.class)
 public abstract class BaseTest {
     protected static WebDriver driver;

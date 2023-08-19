@@ -8,7 +8,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,11 +34,12 @@ public abstract class BaseTest {
 
 // retrieves driver, timeout, browser window size and URL
         String driverPath = properties.getProperty("driverPath");
-        int implicitWaitTimeout = Integer.parseInt(properties.getProperty("implicitWaitTimeout"));
+        int implicitWait = Integer.parseInt(properties.getProperty("implicitWait"));
         String browserWindowSize = properties.getProperty("browserWindowSize");
-        String appURL = properties.getProperty("appURL");
+        String URL = properties.getProperty("URL");
 
-//Check if a browser parameter is specified as a system property. If we change browser write in terminal "mvn test -Dbrowser=firefox'
+//Check if a browser parameter is specified as a system property.
+// If we change browser write in terminal 'mvn test -Dbrowser=firefox'
         String browser = System.getProperty("browser");
         if (browser != null) {
             browser = browser.toLowerCase();
@@ -60,13 +60,13 @@ public abstract class BaseTest {
 */
             driver = new ChromeDriver();
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWaitTimeout));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
 //sizes window
         if (browserWindowSize.equalsIgnoreCase("maximize")) {
             driver.manage().window().maximize();
         }
 
-        driver.get(appURL);
+        driver.get(URL);
         dashboardPage = new HomePage(driver);
     }
 

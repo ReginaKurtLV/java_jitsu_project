@@ -32,14 +32,14 @@ public abstract class BaseTest {
             return;
         }
 
-// retrieves driver, timeout, browser window size and URL
+//retrieves driver, timeout, browser window size and URL
         String driverPath = properties.getProperty("driverPath");
         int implicitWait = Integer.parseInt(properties.getProperty("implicitWait"));
         String browserWindowSize = properties.getProperty("browserWindowSize");
         String URL = properties.getProperty("URL");
 
 //Check if a browser parameter is specified as a system property.
-// If we change browser write in terminal 'mvn test -Dbrowser=firefox'
+// If we want change browser write in terminal 'mvn test -Dbrowser=firefox'
         String browser = System.getProperty("browser");
         if (browser != null) {
             browser = browser.toLowerCase();
@@ -61,8 +61,9 @@ public abstract class BaseTest {
             driver = new ChromeDriver();
         }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
+
 //sizes window
-        if (browserWindowSize.equalsIgnoreCase("maximize")) {
+        if (browserWindowSize.equalsIgnoreCase("max")) {
             driver.manage().window().maximize();
         }
 
